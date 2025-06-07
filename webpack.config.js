@@ -1,46 +1,45 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const LoaderError = require('babel-loader/lib/Error');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/main.js',
-  output: {
-    filename: 'bundle.[contenthash].js',
-    path: path.resolve(__dirname, 'build'),
-    clean: true,
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: 'public', to: '.', globOptions: { ignore: ['**/index.html'] } },
-      ],
-    }),
-  ],
-  devtool: 'source-map',
-  mode: 'production',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
-    ],
-  },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'build'),
+    entry: './src/main.js', // Entry point of your application
+    output: {
+        filename: 'bundle.[contenthash].js',
+        path: path.resolve(__dirname, 'build'),
+        clean: true,
     },
-    compress: true,
-    port: 9000,
-    open: true,
-  },
-}; 
+    devtool: 'source-map',
+    mode: 'development',
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    }
+                }
+            }
+        ]
+    },
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'public'),
+                    to: path.resolve(__dirname, 'build'),
+                    globOptions: {
+                        ignore: ['**/index.html'],
+                    }
+                }
+            ]
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'public', 'index.html'),
+        }),
+    ]
+}
