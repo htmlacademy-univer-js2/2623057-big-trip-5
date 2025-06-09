@@ -16,7 +16,7 @@
   "devDependencies": {
     "eslint": "8.38.0",
     "eslint-config-htmlacademy": "9.0.0",
-    "webpack": "^5.99.9"
+    "webpack": "^5.79.0"
   },
   "engines": {
     "node": "20"
