@@ -1,46 +1,35 @@
 import AbstractView from '../framework/view/abstract-view.js';
 
-function createFilterItemTemplate(filter) {
-  const { type, label, selected, disabled } = filter;
-  return (
-    `<div class="trip-filters__filter">
-      <input id="filter-${type}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${type}" ${selected ? 'checked' : ''} ${disabled ? 'disabled' : ''}>
-      <label class="trip-filters__filter-label" for="filter-${type}">${label}</label>
-    </div>`
-  );
-}
-
-function createFiltersTemplate(filters) {
-
+function createFiltersTemplate() {
   return (
     `<form class="trip-filters" action="#" method="get">
-      ${filters.map(createFilterItemTemplate).join('')}
+      <div class="trip-filters__filter">
+        <input id="filter-everything" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="everything" checked>
+        <label class="trip-filters__filter-label" for="filter-everything">Everything</label>
+      </div>
+
+      <div class="trip-filters__filter">
+        <input id="filter-future" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="future">
+        <label class="trip-filters__filter-label" for="filter-future">Future</label>
+      </div>
+
+      <div class="trip-filters__filter">
+        <input id="filter-present" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="present">
+        <label class="trip-filters__filter-label" for="filter-present">Present</label>
+      </div>
+
+      <div class="trip-filters__filter">
+        <input id="filter-past" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="past">
+        <label class="trip-filters__filter-label" for="filter-past">Past</label>
+      </div>
+
       <button class="visually-hidden" type="submit">Accept filter</button>
     </form>`
   );
 }
 
 export default class FiltersView extends AbstractView {
-  #items = [];
-  #onFilterChange = null;
-
-  constructor({
-    items,
-    onFilterChange
-  }) {
-    super();
-
-    this.#items = items;
-    this.#onFilterChange = onFilterChange;
-    this.element.addEventListener('change', this.#handleFilterChange);
-  }
-
   get template() {
-    return createFiltersTemplate(this.#items);
+    return createFiltersTemplate();
   }
-
-  #handleFilterChange = (evt) => {
-    evt.preventDefault();
-    this.#onFilterChange(evt.target.value);
-  };
 }
