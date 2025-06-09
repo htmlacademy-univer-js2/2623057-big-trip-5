@@ -1,36 +1,29 @@
 import {
-  DESCCRIPTIONS,
-  CITIES,
+  DESCRIPTIONS,
+  MAX_IMAGES_COUNT,
 } from '../const.js';
 
 import {
-  incrementCounter,
   getRandomArrayElement,
   getRandomPositiveNumber
 } from '../utils.js';
-const MAX_IMAGES_COUNT = 5;
-const START_ID_COUNTER = 1;
-const getCityID = incrementCounter(START_ID_COUNTER);
 
-const setupDestination = () => {
-  const ID = getCityID();
+
+const generateDestination = (city) => {
+  const id = crypto.randomUUID();
   return ({
-    id: (ID).toString(),
-    description: getRandomArrayElement(DESCCRIPTIONS),
-    name: CITIES[ID - 1],
+    id,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    name: city,
     pictures: Array.from({
       length: getRandomPositiveNumber(MAX_IMAGES_COUNT)
     }, () => ({
-      src: `https://loremflickr.com/248/152?${ID}`,
-      description: getRandomArrayElement(DESCCRIPTIONS)
+      src: `https://loremflickr.com/248/152?${id}`,
+      description: getRandomArrayElement(DESCRIPTIONS)
     }))
   });
 };
 
-const getDestinations = () => Array.from({
-  length: CITIES.length
-}, setupDestination);
-
 export {
-  getDestinations
+  generateDestination,
 };
