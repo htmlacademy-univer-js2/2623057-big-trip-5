@@ -23,7 +23,11 @@ module.exports = {
                         presets: ['@babel/preset-env'],
                     }
                 }
-            }
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader']
+            },
         ]
     },
     plugins: [
@@ -42,4 +46,4 @@ module.exports = {
             template: path.resolve(__dirname, 'public', 'index.html'),
         }),
     ]
-}
+}     
