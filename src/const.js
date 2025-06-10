@@ -9,6 +9,22 @@ const POINTS_COUNT = 5;
 const MAX_PRICE_VALUE = 200;
 const MAX_IMAGES_COUNT = 5;
 
+const AUTH_TOKEN = 'Basic dXNlckBwYXNzd29yZAo=';
+const API_HOST = 'https://21.objects.htmlacademy.pro/big-trip';
+
+const HttpMethod = {
+  GET: 'GET',
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE',
+};
+
+const Endpoint = {
+  POINTS: 'points',
+  OFFERS: 'offers',
+  DESTINATIONS: 'destinations',
+};
+
 const EVENT_TYPES = [
   'taxi',
   'bus',
@@ -37,9 +53,28 @@ const DESCRIPTIONS = [
   'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit ad eaque cupiditate praesentium maxime.',
 ];
 
+const DEFAULT_EVENT_TYPE = 'flight';
+
+const POINT_DUMMY = {
+  basePrice: 0,
+  dateFrom: null,
+  dateTo: null,
+  destination: null,
+  isFavorite: false,
+  offers: [],
+  type: DEFAULT_EVENT_TYPE,
+};
+
+const REQUIRED_POINT_FIELDS = ['dateFrom', 'dateTo', 'destination', 'type', 'basePrice'];
+
 const PointMode = {
   IDLE: 'IDLE',
   EDITABLE: 'EDITABLE',
+};
+
+const EditType = {
+  EDITING: 'EDITING',
+  CREATING: 'CREATING',
 };
 
 const FilterType = {
@@ -60,7 +95,6 @@ const SortType = {
 const FilterSettings = {
   [FilterType.ANY]: {
     label: 'Everything',
-    defaultSelected: true,
   },
   [FilterType.FUTURE]: { label: 'Future' },
   [FilterType.PRESENT]: { label: 'Present' },
@@ -101,6 +135,7 @@ const DateFormat = {
   SHORT: 'MMM DD',
   FULL: 'YYYY-MM-DDTHH:mm',
   WITH_DELIMITER: 'DD/MM/YY HH:mm',
+  WITH_DELIMITER_FLAT_PICKER: 'd/m/y H:i',
 };
 
 const DurationFormat = {
@@ -119,6 +154,27 @@ const MocksMaxCount = {
   POINTS: 5,
 };
 
+const UpdateType = {
+  PATCH: 'PATCH',
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR',
+  INIT: 'INIT',
+};
+
+const UserAction = {
+  UPDATE_POINT: 'UPDATE_POINT',
+  DELETE_POINT: 'DELETE_POINT',
+  CREATE_POINT: 'CREATE_POINT',
+};
+
+const UiBlockerLimit = {
+  LOWER: 250,
+  UPPER: 1000,
+};
+
+const DESTINATIONS_NAMES_MAX_COUNT = 3;
+
+
 export {
   POINTS_COUNT,
   EVENT_TYPES,
@@ -127,7 +183,10 @@ export {
   CITIES,
   DESCRIPTIONS,
   SORTING_COLUMNS,
+  POINT_DUMMY,
+  REQUIRED_POINT_FIELDS,
   PointMode,
+  EditType,
   FilterType,
   FilterSettings,
   SortType,
@@ -137,4 +196,12 @@ export {
   MocksMaxCount,
   MSEC_IN_HOUR,
   MSEC_IN_DAY,
+  UpdateType,
+  AUTH_TOKEN,
+  API_HOST,
+  HttpMethod,
+  Endpoint,
+  UserAction,
+  UiBlockerLimit,
+  DESTINATIONS_NAMES_MAX_COUNT,
 };
